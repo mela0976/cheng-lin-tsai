@@ -1,0 +1,283 @@
+[
+  {
+    "date": "2025-09-09",
+    "title": "賦能中小企業產業 AI 化如何引爆台灣的商業創新",
+    "org": "財團法人台灣人工智慧學校",
+    "event": "2025 台灣人工智慧年會",
+    "links": [{"label": "網站", "url": "https://conf2025.aiacademy.tw/speaker-46/"}],
+    "tags": ["keynote", "enterprise-ai"]
+  },
+  {
+    "date": "2025-08-01",
+    "title": "GCP Conversational Agents, Agentspace",
+    "org": "玉山金控",
+    "event": "AI 主管培育班",
+    "tags": ["gcp", "agents"]
+  },
+  {
+    "date": "2025-07-24",
+    "title": "系統整合商 PM 班及 Sales and Marketing 班",
+    "org": "系統整合商",
+    "tags": ["enterprise"]
+  },
+  {
+    "date": "2025-03-27",
+    "title": "開源模型的衝擊與對應 - 生成式 AI 的開源工具應用",
+    "org": "台灣人工智慧學校",
+    "links": [{"label": "影片", "url": "https://youtu.be/4bjAMfEWbf4?si=a1n765rzu1YBk3eL&t=15456"}],
+    "tags": ["open-source", "genai"]
+  },
+  {
+    "date": "2025-03-12",
+    "title": "AI Agentic Workflow、AI Agentic Workflow 實作",
+    "org": "廣達電腦",
+    "tags": ["agents", "enterprise"]
+  },
+  {
+    "date": "2025-01-01",
+    "title": "GenAI 素養認證實作班",
+    "org": "台灣人工智慧學校",
+    "event": "長庚場、電通台灣、第一～三期",
+    "links": [{"label": "長庚場", "url": "https://aiacademy.tw/admission-genai3-tp/"}],
+    "tags": ["certification", "genai"]
+  },
+  {
+    "date": "2025-01-01",
+    "title": "大型語言模型實作中階班（第一～二期）",
+    "org": "台灣人工智慧學校",
+    "tags": ["llm", "advanced"]
+  },
+  {
+    "date": "2025-01-01",
+    "title": "大型語言模型實作初階班（第三～五期、台中第一～二期）",
+    "org": "台灣人工智慧學校",
+    "tags": ["llm", "beginner"]
+  },
+  {
+    "date": "2024-11-20",
+    "title": "智慧醫療專班",
+    "org": "國衛院",
+    "tags": ["medical-ai"]
+  },
+  {
+    "date": "2024-10-04",
+    "title": "AI 主管培育班",
+    "org": "玉山銀行",
+    "tags": ["finance", "executive"]
+  },
+  {
+    "date": "2024-08-24",
+    "title": "AI 行銷應用 - Gemini",
+    "org": "Google 數位人才探索計畫 X AIA",
+    "tags": ["google", "marketing"]
+  },
+  {
+    "date": "2024-06-20",
+    "title": "生成式AI工具應用",
+    "org": "台灣人工智慧學校",
+    "event": "2024 百工百業用 AI: GenAI 先導工作坊（夏季場）",
+    "links": [{"label": "議程", "url": "https://aiacademy.tw/genai2024-620agenda/"}],
+    "tags": ["workshop", "genai"]
+  },
+  {
+    "date": "2024-06-18",
+    "title": "生成式AI工具應用",
+    "org": "國立政治大學 EMBA 華山論劍社",
+    "tags": ["university", "genai"]
+  },
+  {
+    "date": "2024-06-04",
+    "title": "生成式 AI 平台的創新性和應用前景",
+    "org": "台灣人工智慧協會",
+    "event": "AI Talk",
+    "tags": ["talk", "genai"]
+  },
+  {
+    "date": "2024-06-03",
+    "title": "ChatGPT 與 Gemini 應用",
+    "org": "TMS全鋒事業",
+    "tags": ["enterprise", "genai"]
+  },
+  {
+    "date": "2024-05-22",
+    "title": "Generative AI",
+    "org": "國立政治大學創新國際學院",
+    "tags": ["university", "genai"]
+  },
+  {
+    "date": "2024-05-20",
+    "title": "生成式 AI 產業應用案例",
+    "org": "電通台灣",
+    "tags": ["enterprise", "genai"]
+  },
+  {
+    "date": "2024-05-08",
+    "title": "生成式 AI 工具應用",
+    "org": "國立臺北科技大學資訊與財金管理系",
+    "tags": ["university", "genai"]
+  },
+  {
+    "date": "2024-04-18",
+    "title": "創造未來：生成式AI在新世界中的角色與影響",
+    "org": "財團法人中衛發展中心",
+    "tags": ["genai"]
+  },
+  {
+    "date": "2024-04-15",
+    "title": "大型語言模型應用實作班",
+    "org": "財政部財政人員訓練所",
+    "tags": ["government", "llm"]
+  },
+  {
+    "date": "2024-03-21",
+    "title": "生成式AI工具應用",
+    "org": "台灣人工智慧學校",
+    "event": "2024 百工百業用 AI: GenAI 先導工作坊（春季場）",
+    "links": [
+      {"label": "議程", "url": "https://aiacademy.tw/genai2024-321agenda/"},
+      {"label": "新聞", "url": "https://money.udn.com/money/story/5723/7852257"}
+    ],
+    "tags": ["workshop", "genai"]
+  },
+  {
+    "date": "2023-11-30",
+    "title": "生成式 AI 的最新應用發展",
+    "org": "遠東集團",
+    "event": "BTS Talk 專題分享活動",
+    "tags": ["enterprise", "genai"]
+  },
+  {
+    "date": "2023-10-12",
+    "title": "食品生物技術與機器學習概論講座",
+    "org": "台北醫學大學食品安全學系",
+    "tags": ["university", "ml"]
+  },
+  {
+    "date": "2023-09-20",
+    "title": "AIGC 專班",
+    "org": "遠東集團資訊科技委員會",
+    "event": "包括銀行、傳產、零售、水泥、紡織、電商與電信等",
+    "tags": ["enterprise", "aigc"]
+  },
+  {
+    "date": "2023-08-27",
+    "title": "AIGC 工作流",
+    "org": "華人王牌培訓股份有限公司",
+    "tags": ["aigc"]
+  },
+  {
+    "date": "2023-07-26",
+    "title": "AIGC 實戰夏令營：高中生的第一個生成式 AI 營隊",
+    "org": "台灣人工智慧學校",
+    "links": [{"label": "報名", "url": "https://aiacademy.tw/admission-summer2023-tp/"}],
+    "tags": ["camp", "aigc"]
+  },
+  {
+    "date": "2023-07-23",
+    "title": "AI 工具整合運用：ChatGPT、Leonardo AI、Line Bot、Messenger",
+    "org": "中華飾金寶石協會",
+    "tags": ["tools", "aigc"]
+  },
+  {
+    "date": "2023-07-17",
+    "title": "AI的學習地圖與人才認證",
+    "org": "行政院人事行政總處公務人力發展學院",
+    "event": "113年度「科技賦能．建構未來研習班」",
+    "tags": ["government"]
+  },
+  {
+    "date": "2023-07-01",
+    "title": "AIGC 實戰工作坊：ChatGPT X 智慧工作新世紀",
+    "org": "台灣人工智慧學校",
+    "links": [{"label": "報名", "url": "https://aiacademy.tw/admission-aigc-tc/"}],
+    "tags": ["workshop", "aigc"]
+  },
+  {
+    "date": "2023-06-01",
+    "title": "AI 對話實戰：手把手教學深入理解 ChatGPT 工作術",
+    "org": "統一超商股份有限公司",
+    "event": "2023.06 ~ 2024.03 多梯次",
+    "tags": ["enterprise", "chatgpt"]
+  },
+  {
+    "date": "2023-05-20",
+    "title": "手把手機器學習、深度學習、生成式AI",
+    "org": "台灣人工智慧學校",
+    "event": "台北總校第15期經理人研修班",
+    "tags": ["executive", "ml"]
+  },
+  {
+    "date": "2023-04-29",
+    "title": "簡單聊聊 ChatGPT",
+    "org": "台灣人工智慧學校",
+    "links": [
+      {"label": "投影片", "url": "https://drive.google.com/file/d/1XixwARwivkkPe7oUvyrEg2gBahITtcHT"},
+      {"label": "錄影", "url": "https://youtu.be/nJgoeQ51krk"}
+    ],
+    "tags": ["chatgpt"]
+  },
+  {
+    "date": "2023-04-01",
+    "title": "程人頻道 Podcast 專訪",
+    "org": "程人頻道",
+    "links": [
+      {"label": "Apple Podcast", "url": "https://podcasts.apple.com/tw/podcast/ep180/id1533113063?i=1000614861929"},
+      {"label": "SoundOn", "url": "https://player.soundon.fm/p/561d95e2-ee0d-4327-bd8b-72801408d12a/episodes/88a86eb8-d35a-493c-af92-edba77e72b57"}
+    ],
+    "tags": ["podcast"]
+  },
+  {
+    "date": "2023-01-01",
+    "title": "AIGC 文字生成",
+    "org": "台灣人工智慧學校",
+    "event": "台北總校第16、18、19期經理人研修班",
+    "tags": ["executive", "aigc"]
+  },
+  {
+    "date": "2021-07-01",
+    "title": "Python 基礎知識與爬蟲基礎技能",
+    "org": "台灣人工智慧學校",
+    "tags": ["python"]
+  },
+  {
+    "date": "2021-07-01",
+    "title": "BIIC Lab 影像辨識暑期實作營",
+    "org": "清華大學",
+    "links": [{"label": "YouTube", "url": "https://youtube.com/playlist?list=PL1yJyyU_cuTPeL-9SVPo7Brn95Q9Hp0B_"}],
+    "tags": ["cv", "camp"]
+  },
+  {
+    "date": "2021-04-01",
+    "title": "AI人工智慧與資料分析實戰班",
+    "org": "財團法人商業發展研究院",
+    "event": "勞動部產業新尖兵試辦計畫",
+    "links": [{"label": "網站", "url": "https://www.cdri.org.tw/xcdoc/cont?xsmsid=0I075316229914512498&sid=0L027636952624397550"}],
+    "tags": ["training"]
+  },
+  {
+    "date": "2020-08-01",
+    "title": "Python程式設計及電腦視覺與機器學習技術實作",
+    "org": "新北市電腦商業同業公會",
+    "links": [{"label": "網站", "url": "http://www.ntca.org.tw/WebMaster/?module=news&func=_detail&id=114"}],
+    "tags": ["python", "cv"]
+  },
+  {
+    "date": "2019-11-01",
+    "title": "用 Python 實踐人工智慧的強化學習",
+    "org": "美商 Synopsys 新思科技",
+    "tags": ["rl", "python"]
+  },
+  {
+    "date": "2017-05-01",
+    "title": "中華電信電信學院系列課程",
+    "org": "中華電信電信學院",
+    "event": "LLM+RPA、AI行銷、LLM微調、LangChain、生成式AI、Python AI、深度學習、機器學習等多期課程（2017～迄今）",
+    "tags": ["series", "telecom"]
+  },
+  {
+    "date": "2017-01-01",
+    "title": "Deep learning 在醫學影像上的應用",
+    "org": "合華科技股份有限公司",
+    "tags": ["medical", "dl"]
+  }
+]

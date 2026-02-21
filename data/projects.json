@@ -1,0 +1,32 @@
+[
+  {
+    "title": "美食轉盤",
+    "desc": "專門給選擇障礙的人使用的美食轉盤，結合 Google Map 與 Gemini 進行美食推薦",
+    "url": "https://ai-food-spinner-uberv1-798904783325.us-west1.run.app",
+    "tags": ["Gemini", "Google Map"]
+  },
+  {
+    "title": "路跑成績預測",
+    "desc": "根據 70 幾歲路跑 20 幾年的醫師需求打造的個人馬拉松預測，國衛院統計教授協助校正參數",
+    "url": "https://run-forecast-dashboard.lovable.app",
+    "tags": ["Statistics", "Dashboard"]
+  },
+  {
+    "title": "發票掃描分析",
+    "desc": "給記帳人員用的發票掃描分析工具",
+    "url": "https://biz-receipt-scan.lovable.app",
+    "tags": ["OCR", "Automation"]
+  },
+  {
+    "title": "中小微企業 AI 應用工具包",
+    "desc": "自動化流程、RAG 等 AI 工具整合方案",
+    "url": "https://sneaky-coffee-392.notion.site/AI-28154713b8fe8086bd1ed1da1b940602",
+    "tags": ["RAG", "Automation"]
+  },
+  {
+    "title": "政大 EMBA 華山論劍社 AI 系列課程",
+    "desc": "生成式 AI 系列講座教材",
+    "url": "https://cltsai.notion.site/AI-257f66917fe580d6ab07de8215350891",
+    "tags": ["GenAI", "Education"]
+  }
+]
