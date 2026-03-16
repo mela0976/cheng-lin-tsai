@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antigravity + Claude Code 完整入門教學</title>
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #10b981;
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --card2: #16213e;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #2d2d4e;
+    --accent: #f59e0b;
+    --code-bg: #0d1117;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, #1a1a3e 0%, #0f0f1a 50%, #0a1628 100%);
+    padding: 80px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(99,102,241,.15) 0%, transparent 60%),
+                radial-gradient(circle at 70% 50%, rgba(16,185,129,.1) 0%, transparent 60%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(99,102,241,.2);
+    border: 1px solid rgba(99,102,241,.4);
+    color: #a5b4fc;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: .5px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #a5b4fc, #6ee7b7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    position: relative;
+  }
+  .tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Nav */
+  .toc {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    position: sticky; top: 0; z-index: 100;
+    overflow-x: auto;
+  }
+  .toc-inner {
+    display: flex; gap: 8px; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+    white-space: nowrap;
+  }
+  .toc-inner span { color: var(--muted); font-size: 13px; margin-right: 4px; }
+  .toc a {
+    color: var(--muted); text-decoration: none;
+    font-size: 13px; padding: 4px 12px;
+    border-radius: 6px; border: 1px solid transparent;
+    transition: all .2s;
+  }
+  .toc a:hover { color: var(--text); border-color: var(--border); }
+
+  /* Layout */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* Sections */
+  .section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 40px;
+  }
+  .step-num {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section h2 {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, var(--text), var(--muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h3 {
+    font-size: 18px; font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card p, .card li { color: var(--muted); font-size: 15px; }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+
+  /* Step cards */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .step-circle {
+    width: 36px; height: 36px;
+    background: rgba(99,102,241,.15);
+    border: 2px solid rgba(99,102,241,.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    color: #a5b4fc;
+    flex-shrink: 0;
+  }
+  .step-content h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .step-content p { color: var(--muted); font-size: 14px; }
+
+  /* Code */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .code-header {
+    background: #161b22;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: #8b949e;
+    border-bottom: 1px solid #30363d;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .code-header .lang { color: #6ee7b7; font-weight: 600; }
+  pre {
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  code { color: #e6edf3; }
+  .cmd { color: #79c0ff; }
+  .str { color: #a5d6ff; }
+  .comment { color: #8b949e; font-style: italic; }
+
+  /* Screenshot mockups */
+  .mockup {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  .mockup-bar {
+    background: #1c1c2e;
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .mockup-title { color: var(--muted); font-size: 12px; margin-left: 8px; }
+  .mockup-body { padding: 24px; }
+
+  /* VS Code mockup */
+  .vscode {
+    background: #1e1e1e;
+    border: 1px solid #454545;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .vscode-titlebar {
+    background: #3c3c3c;
+    padding: 8px 16px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: #cccccc;
+  }
+  .vscode-sidebar {
+    background: #252526;
+    padding: 16px;
+    border-bottom: 1px solid #454545;
+    font-size: 12px; color: #bfbfbf;
+  }
+  .vscode-editor { padding: 20px; font-size: 13px; line-height: 1.8; }
+
+  /* Callouts */
+  .callout {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex; gap: 14px;
+    align-items: flex-start;
+  }
+  .callout-tip { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.25); }
+  .callout-warn { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); }
+  .callout-info { background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.25); }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .callout-body h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .callout-tip h4 { color: #6ee7b7; }
+  .callout-warn h4 { color: #fcd34d; }
+  .callout-info h4 { color: #a5b4fc; }
+  .callout-body p { font-size: 14px; color: var(--muted); }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:640px){ .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Feature list */
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 14px; }
+  .feature-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .feature-item .icon { font-size: 28px; margin-bottom: 10px; }
+  .feature-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .feature-item p { font-size: 13px; color: var(--muted); }
+
+  /* Workflow */
+  .flow {
+    display: flex; align-items: center; gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .flow-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    text-align: center;
+    flex: 1; min-width: 120px;
+  }
+  .flow-item .flow-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+  .flow-arrow { color: var(--primary); font-size: 20px; font-weight: 700; }
+
+  /* Highlight */
+  .hl-purple { color: #a5b4fc; }
+  .hl-green  { color: #6ee7b7; }
+  .hl-amber  { color: #fcd34d; }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge-new { background: rgba(99,102,241,.2); color: #a5b4fc; }
+  .badge-adv { background: rgba(245,158,11,.2); color: #fcd34d; }
+
+  /* Video embed */
+  .video-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin: 20px 0;
+  }
+  .video-wrap iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+  }
+  footer p { color: var(--muted); font-size: 14px; }
+  footer a { color: #a5b4fc; text-decoration: none; }
+
+  /* Inline code */
+  .ic {
+    background: rgba(99,102,241,.15);
+    border: 1px solid rgba(99,102,241,.25);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: monospace;
+    font-size: .9em;
+    color: #c4b5fd;
+  }
+
+  /* Screenshot placeholder with icon */
+  .screenshot {
+    background: linear-gradient(135deg, #1a1a3e, #0f172a);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin: 16px 0;
+  }
+  .screenshot-icon { font-size: 48px; display: block; margin-bottom: 12px; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { background: var(--card2); padding: 12px 16px; text-align: left; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid rgba(45,45,78,.5); }
+  tr:hover td { background: rgba(99,102,241,.04); }
+
+  a { color: #a5b4fc; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">🚀 完整入門教學 2024</div>
+  <h1>Antigravity × Claude Code<br>Vibe Coding 完整指南</h1>
+  <p>從零開始，用 AI 驅動開發流程。適合完全沒有程式背景的人。</p>
+  <div class="hero-tags">
+    <span class="tag">⚡ Antigravity</span>
+    <span class="tag">🤖 Claude Code</span>
+    <span class="tag">💻 VS Code</span>
+    <span class="tag">🐙 GitHub</span>
+    <span class="tag">🎯 Vibe Coding</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-inner">
+    <span>目錄：</span>
+    <a href="#s1">① 安裝 Antigravity</a>
+    <a href="#s2">② 介面介紹</a>
+    <a href="#s3">③ Vibe Coding 流程</a>
+    <a href="#s4">④ Claude Code</a>
+    <a href="#s5">⑤ GitHub 入門</a>
+    <a href="#s6">⑥ Antigravity × GitHub</a>
+    <a href="#s7">⑦ 抓取 Repo</a>
+    <a href="#s8">⑧ 進階實戰</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 1: 安裝 Antigravity -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="step-num">1</div>
+    <h2>安裝 Google Antigravity</h2>
+  </div>
+
+  <div class="card">
+    <h3>🤔 什麼是 Antigravity？</h3>
+    <p>Antigravity 是 Google 推出的 AI 編程工具，整合在 VS Code 中，讓你能用自然語言（說話的方式）產生程式碼。可以理解為「有超強 AI 助手的程式編輯器外掛」。</p>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span class="mockup-title">VS Code — Extensions</span>
+    </div>
+    <div class="mockup-body">
+      <div style="background:#252526;border-radius:8px;padding:16px;font-family:monospace;font-size:14px;">
+        <div style="color:#a5b4fc;margin-bottom:8px;">📦 Extensions: Marketplace</div>
+        <div style="background:#1a1a2e;border:1px solid #6366f1;border-radius:6px;padding:12px;margin:8px 0;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:32px;">🪐</span>
+            <div>
+              <div style="color:#fff;font-weight:600;">Gemini Code Assist (Antigravity)</div>
+              <div style="color:#8b949e;font-size:12px;">Google  •  ⭐ 4.8  •  500K+ installs</div>
+            </div>
+            <button style="margin-left:auto;background:#6366f1;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;">Install</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>安裝 VS Code</h4>
+        <p>前往 <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a> 下載並安裝 VS Code（免費）。選擇你的作業系統版本（Windows / macOS / Linux）。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>開啟 Extensions 面板</h4>
+        <p>開啟 VS Code 後，點擊左側欄的方塊圖示（或按 <span class="ic">Ctrl+Shift+X</span> / <span class="ic">Cmd+Shift+X</span>）開啟擴充套件面板。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>搜尋並安裝 Gemini Code Assist</h4>
+        <p>在搜尋框輸入 <span class="ic">Gemini Code Assist</span>，找到 Google 出版的版本，點擊 <strong>Install</strong>。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>登入 Google 帳號</h4>
+        <p>安裝完成後，VS Code 右下角會出現登入提示。點擊後用你的 Google 帳號授權。免費方案每天有充足的請求次數。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <h4>成功標誌</h4>
+      <p>安裝完成後，VS Code 左側欄會多出一個 Gemini 的星形圖示，點擊可以打開 AI 對話視窗。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 2: 介面介紹 -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="step-num">2</div>
+    <h2>操作介面介紹</h2>
+  </div>
+
+  <div class="vscode">
+    <div class="vscode-titlebar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span style="margin-left:8px;">VS Code — Antigravity 介面示意</span>
+    </div>
+    <div style="display:grid;grid-template-columns:220px 1fr;min-height:320px;">
+      <div class="vscode-sidebar">
+        <div style="color:#569cd6;margin-bottom:12px;font-weight:600;">▸ EXPLORER</div>
+        <div style="color:#bfbfbf;margin-bottom:4px;">📁 my-project</div>
+        <div style="color:#bfbfbf;padding-left:16px;margin-bottom:2px;">📄 index.html</div>
+        <div style="color:#bfbfbf;padding-left:16px;margin-bottom:2px;">📄 style.css</div>
+        <div style="color:#bfbfbf;padding-left:16px;margin-bottom:2px;">📄 app.js</div>
+        <div style="margin-top:16px;color:#569cd6;font-weight:600;">▸ GEMINI CHAT</div>
+        <div style="margin-top:8px;background:#1e1e1e;border-radius:6px;padding:10px;font-size:11px;">
+          <div style="color:#6ee7b7;">你：幫我做一個按鈕...</div>
+          <div style="color:#a5b4fc;margin-top:6px;">AI：好的，以下是...</div>
+        </div>
+      </div>
+      <div class="vscode-editor">
+        <div style="color:#569cd6;">&lt;<span style="color:#4ec9b0;">div</span> <span style="color:#9cdcfe;">class</span>=<span style="color:#ce9178;">"container"</span>&gt;</div>
+        <div style="padding-left:24px;color:#4ec9b0;">&lt;h1&gt;<span style="color:#d4d4d4;">Hello World</span>&lt;/h1&gt;</div>
+        <div style="color:#569cd6;">&lt;/<span style="color:#4ec9b0;">div</span>&gt;</div>
+        <div style="margin-top:16px;background:rgba(99,102,241,.1);border-left:3px solid #6366f1;padding:10px;border-radius:0 6px 6px 0;font-size:12px;">
+          <div style="color:#a5b4fc;">💡 Gemini 建議：在 h1 加上 CSS class 讓樣式更一致</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="icon">💬</div>
+      <h4>AI Chat 視窗</h4>
+      <p>點左側星形圖示打開。用中文直接問問題，AI 會回答並產生程式碼。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">✨</div>
+      <h4>Inline Completion</h4>
+      <p>輸入程式碼時 AI 會自動補全。按 <span class="ic">Tab</span> 接受建議，<span class="ic">Esc</span> 忽略。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">🔧</div>
+      <h4>右鍵選單</h4>
+      <p>選取程式碼後右鍵，可以叫 AI 解釋、修改、或加入測試。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">🐛</div>
+      <h4>自動修 Bug</h4>
+      <p>程式出錯時，錯誤訊息下方會出現「Ask Gemini」按鈕，自動分析原因。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">@</div>
+      <h4>@filename 引用</h4>
+      <p>在聊天視窗輸入 <span class="ic">@</span> 可以引用特定檔案，讓 AI 直接針對該檔案回答。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">📝</div>
+      <h4>程式碼生成</h4>
+      <p>在聊天視窗描述你要的功能，AI 會直接產生完整的程式碼可以複製貼上。</p>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <h4>快捷鍵總覽</h4>
+      <p><span class="ic">Ctrl+I</span> / <span class="ic">Cmd+I</span>：開啟 Inline Chat（在游標位置直接對話）｜<span class="ic">Ctrl+Shift+I</span>：開啟側邊 Chat 視窗</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 3: Vibe Coding 流程 -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="step-num">3</div>
+    <h2>Vibe Coding 功能應用流程</h2>
+  </div>
+
+  <div class="card">
+    <h3>🎯 什麼是 Vibe Coding？</h3>
+    <p>Vibe Coding 是一種新的開發模式：<strong style="color:#a5b4fc;">你描述「你要什麼」，AI 寫程式</strong>。你扮演產品經理，AI 扮演工程師。重點是把你的「感覺」轉化為具體的產品。</p>
+  </div>
+
+  <h3 style="margin:24px 0 16px;font-size:20px;">標準工作流程</h3>
+
+  <div class="flow">
+    <div class="flow-item">
+      <span class="flow-icon">💭</span>
+      <strong>1. 想清楚</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">描述你要做什麼</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">📝</span>
+      <strong>2. Prompt</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">用自然語言告訴 AI</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">⚡</span>
+      <strong>3. AI 生成</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">AI 產生程式碼</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">👀</span>
+      <strong>4. 檢視</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">看結果對不對</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🔁</span>
+      <strong>5. 迭代</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">修改直到滿意</div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">①</div>
+      <div class="step-content">
+        <h4>定義產品需求（PRD Prompt）</h4>
+        <p>在 Chat 視窗描述你要做什麼：「我要做一個個人網站，有自我介紹、作品集和聯絡表單。樣式要簡潔現代，用深色主題。」</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">prompt 範例</span></div>
+          <pre><code>幫我建立一個個人作品集網站
+- 首頁有大標題和簡短介紹
+- 作品集區域用卡片排列
+- 有聯絡我的表單
+- 深色主題，現代感
+請先建立 HTML 結構</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">②</div>
+      <div class="step-content">
+        <h4>讓 AI 生成基礎架構</h4>
+        <p>AI 會產生 HTML / CSS / JS 程式碼。複製到對應的檔案，在瀏覽器打開看效果。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">③</div>
+      <div class="step-content">
+        <h4>迭代調整細節</h4>
+        <p>「把標題改成紅色」、「卡片之間加更多間距」、「把按鈕圓角改大一點」— 一步一步告訴 AI 你想改什麼。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">④</div>
+      <div class="step-content">
+        <h4>加入功能</h4>
+        <p>「幫我在作品集加上點擊彈出詳細介紹的功能」、「表單送出後顯示感謝訊息」。AI 會自動寫 JavaScript 邏輯。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">⑤</div>
+      <div class="step-content">
+        <h4>修 Bug</h4>
+        <p>有問題時直接截圖錯誤或把錯誤訊息貼給 AI：「這個錯誤是什麼意思？怎麼修？」</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <h4>Vibe Coding 的注意事項</h4>
+      <p>AI 生成的程式碼不一定 100% 正確。要養成每次修改後都測試的習慣，不要一次叫 AI 做太多事。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 4: Claude Code -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="step-num">4</div>
+    <h2>安裝 Claude Code for VS Code</h2>
+  </div>
+
+  <div class="card">
+    <h3>🤖 Claude Code 是什麼？</h3>
+    <p>Claude Code 是 Anthropic（ChatGPT 競爭對手）推出的 AI 編程工具。相比 Antigravity，Claude Code 更擅長理解複雜的程式結構和大型專案，常被認為程式理解能力更強。</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>✅ Antigravity（Gemini）</h3>
+      <ul>
+        <li>免費方案較慷慨</li>
+        <li>與 Google 生態整合好</li>
+        <li>適合初學者</li>
+        <li>即時補全快速</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>⚡ Claude Code</h3>
+      <ul>
+        <li>理解複雜程式碼強</li>
+        <li>大型專案分析佳</li>
+        <li>說明清晰易懂</li>
+        <li>適合進階使用</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:24px 0 16px;font-size:18px;">安裝步驟</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>在 VS Code 搜尋擴充套件</h4>
+        <p>開啟 Extensions（<span class="ic">Ctrl+Shift+X</span>），搜尋 <span class="ic">Claude</span> 或 <span class="ic">Anthropic</span>，安裝官方的 Claude Code 擴充套件。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>或透過 npm 全域安裝</h4>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal</span></div>
+          <pre><code><span class="cmd">npm</span> install -g @anthropic-ai/claude-code</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>取得 API Key</h4>
+        <p>前往 <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> 註冊帳號，在 API Keys 頁面建立新的 key。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>設定 API Key</h4>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal</span></div>
+          <pre><code><span class="comment"># macOS / Linux</span>
+<span class="cmd">export</span> ANTHROPIC_API_KEY=<span class="str">"sk-ant-..."</span>
+
+<span class="comment"># 或直接在 VS Code 設定裡填入</span>
+<span class="comment"># Settings → Extensions → Claude Code → API Key</span></code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">5</div>
+      <div class="step-content">
+        <h4>開始使用</h4>
+        <p>在 VS Code 的 Terminal 輸入 <span class="ic">claude</span> 或使用側邊欄的 Claude 圖示開啟對話。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 5: GitHub -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="step-num">5</div>
+    <h2>GitHub 入門介紹</h2>
+  </div>
+
+  <div class="card">
+    <h3>🐙 GitHub 是什麼？</h3>
+    <p>GitHub 是全球最大的程式碼存放平台。你可以把它想成「程式碼的 Google Drive」— 存放、備份、版本控制、與他人協作都在這裡。<strong style="color:#6ee7b7;">免費帳號就能建立無限個公開/私人專案。</strong></p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="icon">📦</div>
+      <h4>Repository（倉庫）</h4>
+      <p>一個專案就是一個 Repo。存放你的所有程式碼和歷史記錄。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">🌿</div>
+      <h4>Branch（分支）</h4>
+      <p>建立分支來開發新功能，不影響主要程式碼。測試 OK 再合併。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">📸</div>
+      <h4>Commit（提交）</h4>
+      <p>每次存檔就是一個 Commit，可以隨時回到任何一個歷史版本。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">🔀</div>
+      <h4>Pull Request</h4>
+      <p>想把你的修改合併進主程式碼時，發一個 PR 讓別人 Review。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">🌐</div>
+      <h4>GitHub Pages</h4>
+      <p>免費把你的網站部署到網路上！只要一個設定就能有自己的網址。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">⭐</div>
+      <h4>Star & Fork</h4>
+      <p>Star 是書籤，Fork 是複製別人的專案到自己帳號繼續開發。</p>
+    </div>
+  </div>
+
+  <h3 style="margin:24px 0 16px;font-size:18px;">快速開始步驟</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>註冊 GitHub 帳號</h4>
+        <p>前往 <a href="https://github.com" target="_blank">github.com</a>，點擊 Sign up，填入 email、密碼、用戶名稱，完成信箱驗證。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>建立第一個 Repository</h4>
+        <p>登入後點右上角 <span class="ic">+</span> → New repository，填入名稱，勾選「Add a README」，點擊 Create。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>安裝 Git</h4>
+        <p>前往 <a href="https://git-scm.com" target="_blank">git-scm.com</a> 下載安裝 Git。這是連結 VS Code 和 GitHub 的橋梁。</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal — 確認安裝</span></div>
+          <pre><code><span class="cmd">git</span> --version
+<span class="comment"># 應顯示類似: git version 2.44.0</span></code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>設定 Git 身份</h4>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal</span></div>
+          <pre><code><span class="cmd">git</span> config --global user.name <span class="str">"你的名字"</span>
+<span class="cmd">git</span> config --global user.email <span class="str">"你的email@example.com"</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 6: Antigravity + GitHub -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="step-num">6</div>
+    <h2>Antigravity 串接個人 GitHub</h2>
+  </div>
+
+  <div class="card">
+    <h3>🔗 為什麼要串接？</h3>
+    <p>串接後，你可以在 VS Code 裡直接：推送程式碼到 GitHub、讓 AI 幫你撰寫 Commit 訊息、自動建立 PR，全程不用離開編輯器。</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>在 VS Code 安裝 GitHub 相關擴充</h4>
+        <p>在 Extensions 搜尋並安裝：<span class="ic">GitHub Pull Requests</span> 和 <span class="ic">GitLens</span>（選擇性但很有用）。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>登入 GitHub 帳號</h4>
+        <p>VS Code 左下角點擊帳號圖示 → Sign in to GitHub → 瀏覽器跳出後授權。或在 Source Control 面板點擊「Clone Repository」時登入。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>讓 Antigravity 看到你的 GitHub Repo</h4>
+        <p>在 Gemini Chat 視窗輸入 <span class="ic">@</span>，可以看到引用本機專案的選項。若想讓 AI 了解整個專案結構，用 <span class="ic">@workspace</span> 引用整個工作區。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>用 AI 生成 Commit 訊息</h4>
+        <p>改完程式後，在 Source Control 面板的訊息欄旁有 Gemini 小圖示，點擊後 AI 會自動產生描述你修改了什麼的 Commit 訊息。</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">AI 生成範例</span></div>
+          <pre><code><span class="comment"># AI 自動產生的 Commit 訊息:</span>
+feat: add responsive navigation menu
+
+- Add hamburger menu for mobile devices
+- Implement smooth scroll to sections
+- Fix header overlap on scroll</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-icon">🚀</div>
+    <div class="callout-body">
+      <h4>GitHub Pages 一鍵發布</h4>
+      <p>把你的網站 push 到 GitHub 後，到 Repo Settings → Pages → 選擇 main branch → Save，幾分鐘內就有 <code>username.github.io/repo-name</code> 的公開網址！</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 7: 抓取 Repo -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s7">
+  <div class="section-header">
+    <div class="step-num">7</div>
+    <h2>把 GitHub 倉庫抓到本機</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>方法一：VS Code 直接 Clone</h4>
+        <p>按 <span class="ic">Ctrl+Shift+P</span> → 輸入 <span class="ic">Git: Clone</span> → 貼上 GitHub Repo 網址 → 選擇存放位置。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>方法二：Terminal 命令</h4>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal</span></div>
+          <pre><code><span class="comment"># 複製 Repo 到本機</span>
+<span class="cmd">git</span> clone https://github.com/使用者名稱/repo名稱.git
+
+<span class="comment"># 進入資料夾</span>
+<span class="cmd">cd</span> repo名稱
+
+<span class="comment"># 用 VS Code 開啟</span>
+<span class="cmd">code</span> .</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>修改後推回 GitHub</h4>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal — 基本 Git 流程</span></div>
+          <pre><code><span class="comment"># 查看有哪些檔案被修改</span>
+<span class="cmd">git</span> status
+
+<span class="comment"># 把修改加入準備區</span>
+<span class="cmd">git</span> add .
+
+<span class="comment"># 儲存這次的修改（Commit）</span>
+<span class="cmd">git</span> commit -m <span class="str">"修改說明"</span>
+
+<span class="comment"># 推送到 GitHub</span>
+<span class="cmd">git</span> push origin main</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>從 GitHub 拉取最新版本</h4>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">terminal</span></div>
+          <pre><code><span class="comment"># 拉取並合併最新的遠端修改</span>
+<span class="cmd">git</span> pull origin main</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <h3>📋 常用 Git 指令速查</h3>
+    <table>
+      <tr><th>指令</th><th>說明</th></tr>
+      <tr><td><span class="ic">git status</span></td><td>查看哪些檔案被修改了</td></tr>
+      <tr><td><span class="ic">git add .</span></td><td>把所有修改加入暫存區</td></tr>
+      <tr><td><span class="ic">git commit -m "訊息"</span></td><td>儲存一個版本</td></tr>
+      <tr><td><span class="ic">git push</span></td><td>推送到 GitHub</td></tr>
+      <tr><td><span class="ic">git pull</span></td><td>從 GitHub 拉取更新</td></tr>
+      <tr><td><span class="ic">git log --oneline</span></td><td>查看 Commit 歷史</td></tr>
+      <tr><td><span class="ic">git checkout -b 分支名</span></td><td>建立並切換到新分支</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 8: 進階實戰 -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s8">
+  <div class="section-header">
+    <div class="step-num">8</div>
+    <h2>進階實戰 <span class="badge badge-adv">進階</span></h2>
+  </div>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">🎬</div>
+    <div class="callout-body">
+      <h4>推薦影片：Antigravity Workflow 實戰</h4>
+      <p>以下內容參考：【Antigravity Workflow 實戰】市場不會為爛產品買單！建立自動化測試，解決 Vibe Coding 痛點</p>
+    </div>
+  </div>
+
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/Rb0_LutRIaw" allowfullscreen
+      title="Antigravity Workflow 實戰"></iframe>
+  </div>
+
+  <h3 style="margin:32px 0 16px;font-size:20px;">核心觀念：為什麼要加自動化測試？</h3>
+
+  <div class="card">
+    <h3>😱 Vibe Coding 的痛點</h3>
+    <p>AI 改 A 功能時，不知不覺壞了 B 功能。等你發現的時候，已經不知道是哪次修改造成的。<strong style="color:#fcd34d;">解法：建立自動化測試，每次 AI 改完就自動驗證所有功能是否正常。</strong></p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">①</div>
+      <div class="step-content">
+        <h4>建立 SPEC 文件（規格書）</h4>
+        <p>請 AI 根據你的需求產生一份 <span class="ic">SPEC.md</span>，列出所有功能點和預期行為。這是測試的基礎。</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">prompt 範例</span></div>
+          <pre><code>根據我們目前建立的購物車功能，
+幫我生成一份 SPEC.md，列出：
+1. 所有功能點
+2. 每個功能的預期行為
+3. 邊界條件（例如：數量為0、商品不存在）</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">②</div>
+      <div class="step-content">
+        <h4>用 AI 生成測試案例</h4>
+        <p>把 SPEC.md 丟給 AI，請它產生對應的測試程式碼。</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">prompt 範例</span></div>
+          <pre><code>根據 @SPEC.md 的內容，
+幫我用 Jest 生成完整的測試檔案
+涵蓋所有功能點，包含正常情況和邊界情況</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">③</div>
+      <div class="step-content">
+        <h4>設定 GitHub Actions 自動跑測試</h4>
+        <p>每次 push 到 GitHub，自動執行所有測試。AI 改壞東西時立刻發現。</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">prompt 範例</span></div>
+          <pre><code>幫我在 .github/workflows/ 建立一個
+CI 工作流程，每次 push 時自動：
+1. 安裝依賴
+2. 執行 npm test
+3. 測試失敗時發 email 通知</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">④</div>
+      <div class="step-content">
+        <h4>Antigravity Workflow：測試驅動開發</h4>
+        <p><strong>每次叫 AI 做新功能的標準流程：</strong></p>
+        <div class="flow" style="flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;">
+          <div class="flow-item" style="min-width:100px;">
+            <span class="flow-icon">📝</span>
+            <strong>寫需求</strong>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item" style="min-width:100px;">
+            <span class="flow-icon">🧪</span>
+            <strong>AI 寫測試</strong>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item" style="min-width:100px;">
+            <span class="flow-icon">⚡</span>
+            <strong>AI 寫功能</strong>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item" style="min-width:100px;">
+            <span class="flow-icon">✅</span>
+            <strong>跑測試</strong>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item" style="min-width:100px;">
+            <span class="flow-icon">🐙</span>
+            <strong>Push</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">⑤</div>
+      <div class="step-content">
+        <h4>讓 AI 維護測試</h4>
+        <p>功能改變時，連測試也讓 AI 一起更新：「我修改了購物車的折扣邏輯，請同步更新測試案例。」</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-icon">🏆</div>
+    <div class="callout-body">
+      <h4>進階心法：把 AI 當新人工程師</h4>
+      <p>好的 Vibe Coding 不是叫 AI 做所有事，而是你定義規則、AI 執行，你 review 結果。你是架構師，AI 是執行者。每次大的修改前先跑測試確認基線，改完再跑一次確認沒有破壞。</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- end container -->
+
+<!-- Footer -->
+<footer>
+  <p>整理製作 by <a href="https://github.com/mela0976/cheng-lin-tsai" target="_blank">Cheng-Lin Tsai</a>　｜　<a href="https://www.youtube.com/watch?v=Rb0_LutRIaw" target="_blank">進階影片參考</a></p>
+  <p style="margin-top:8px;font-size:12px;color:#475569;">本教學定期更新，歡迎 Star ⭐ 以收藏最新版本</p>
+</footer>
+
+</body>
+</html>
