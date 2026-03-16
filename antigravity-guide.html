@@ -403,10 +403,11 @@
     <a href="#s2">② 介面介紹</a>
     <a href="#s3">③ Vibe Coding 流程</a>
     <a href="#s4">④ Claude Code</a>
-    <a href="#s5">⑤ GitHub 入門</a>
-    <a href="#s6">⑥ Antigravity × GitHub</a>
-    <a href="#s7">⑦ 抓取 Repo</a>
-    <a href="#s8">⑧ 進階實戰</a>
+    <a href="#s5">⑤ 安裝 Git</a>
+    <a href="#s6">⑥ GitHub 入門</a>
+    <a href="#s7">⑦ Antigravity × GitHub</a>
+    <a href="#s8">⑧ 抓取 Repo</a>
+    <a href="#s9">⑨ 進階實戰</a>
   </div>
 </nav>
 
@@ -817,9 +818,145 @@
 <!-- ════════════════════════════════════════ -->
 <!-- SECTION 5: GitHub -->
 <!-- ════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 5: 安裝 Git -->
+<!-- ════════════════════════════════════════ -->
 <section class="section" id="s5">
   <div class="section-header">
     <div class="step-num">5</div>
+    <h2>安裝 Git</h2>
+  </div>
+
+  <div class="card">
+    <h3>🔗 為什麼需要 Git？</h3>
+    <p>Git 是連結<strong>你的電腦</strong>和 <strong>GitHub</strong> 的橋梁。所有「把程式碼推上 GitHub」、「從 GitHub 下載最新版本」的操作，都需要先在電腦安裝 Git。它是一個免費的版本控制工具，安裝一次就好，之後在 Antigravity 和 Terminal 裡都能直接使用。</p>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span class="mockup-title">git-scm.com — 官方下載頁</span>
+    </div>
+    <div class="mockup-body">
+      <div style="background:#f6f8fa;border-radius:10px;padding:24px;color:#1f2328;">
+        <div style="font-size:22px;font-weight:700;margin-bottom:4px;">Git</div>
+        <div style="color:#656d76;font-size:14px;margin-bottom:20px;">--fast-version-control</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <div style="background:#1f883d;color:#fff;padding:10px 20px;border-radius:6px;font-weight:600;font-size:14px;">⬇ Download for Windows</div>
+          <div style="background:#0969da;color:#fff;padding:10px 20px;border-radius:6px;font-weight:600;font-size:14px;">⬇ Download for macOS</div>
+        </div>
+        <div style="margin-top:14px;font-size:12px;color:#656d76;">git-scm.com/downloads</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>前往 Git 官網下載</h4>
+        <p>打開瀏覽器，前往 <a href="https://git-scm.com" target="_blank"><strong>git-scm.com</strong></a>，網站會自動偵測你的作業系統並顯示對應的下載按鈕。</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;">
+          <div class="card" style="padding:14px;text-align:center;">
+            <div style="font-size:28px;margin-bottom:6px;">🪟</div>
+            <div style="font-weight:600;font-size:13px;">Windows</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">.exe 安裝檔<br>一路按 Next 即可</div>
+          </div>
+          <div class="card" style="padding:14px;text-align:center;">
+            <div style="font-size:28px;margin-bottom:6px;">🍎</div>
+            <div style="font-weight:600;font-size:13px;">macOS</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">用 Homebrew 安裝<br>最簡單</div>
+          </div>
+          <div class="card" style="padding:14px;text-align:center;">
+            <div style="font-size:28px;margin-bottom:6px;">🐧</div>
+            <div style="font-weight:600;font-size:13px;">Linux</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">大多已內建<br>或 apt/yum 安裝</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>Windows 安裝</h4>
+        <p>下載 <span class="ic">.exe</span> 安裝檔後執行，所有選項保持預設，一路點 <strong>Next</strong> 即可。安裝完成後，桌面右鍵選單會多出「Git Bash Here」。</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">驗證安裝（Git Bash 或 Command Prompt）</span></div>
+          <pre><code><span class="cmd">git</span> --version
+<span class="comment"># 顯示類似：git version 2.44.0.windows.1</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>macOS 安裝</h4>
+        <p>macOS 有三種方式，最推薦用 Homebrew：</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">方法 A：Homebrew（推薦）</span></div>
+          <pre><code><span class="comment"># 先安裝 Homebrew（若尚未安裝）</span>
+<span class="cmd">/bin/bash</span> -c <span class="str">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span>
+
+<span class="comment"># 再安裝 Git</span>
+<span class="cmd">brew</span> install git</code></pre>
+        </div>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">方法 B：Xcode Command Line Tools（最簡單）</span></div>
+          <pre><code><span class="cmd">xcode-select</span> --install
+<span class="comment"># 跳出安裝視窗後點「安裝」，完成後 Git 就有了</span></code></pre>
+        </div>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">驗證安裝</span></div>
+          <pre><code><span class="cmd">git</span> --version
+<span class="comment"># 顯示類似：git version 2.44.0</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>設定你的 Git 身份（必做）</h4>
+        <p>安裝完後，告訴 Git 你是誰。這個資訊會出現在每次 Commit 記錄裡。</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-header"><span class="lang">Terminal / Git Bash</span></div>
+          <pre><code><span class="comment"># 設定名稱（填你的真名或暱稱）</span>
+<span class="cmd">git</span> config --global user.name <span class="str">"你的名字"</span>
+
+<span class="comment"># 設定 email（填你的 GitHub 帳號 email）</span>
+<span class="cmd">git</span> config --global user.email <span class="str">"your@email.com"</span>
+
+<span class="comment"># 確認設定</span>
+<span class="cmd">git</span> config --list</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-circle">5</div>
+      <div class="step-content">
+        <h4>在 Antigravity 確認 Git 整合</h4>
+        <p>安裝 Git 後，重新開啟 Antigravity，左側欄的 🌿 <strong>Source Control</strong> 面板就會啟用。點擊它可以看到所有檔案修改、提交版本、推送到 GitHub，全部不用離開 IDE。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <h4>安裝完就不用再管了</h4>
+      <p>Git 是背景工具，安裝完之後你幾乎不會直接去碰它。日常操作都在 Antigravity 的 Source Control 面板或 Terminal 裡用幾個簡單指令完成。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="step-num">6</div>
     <h2>GitHub 入門介紹</h2>
   </div>
 
@@ -906,9 +1043,9 @@
 <!-- ════════════════════════════════════════ -->
 <!-- SECTION 6: Antigravity + GitHub -->
 <!-- ════════════════════════════════════════ -->
-<section class="section" id="s6">
+<section class="section" id="s7">
   <div class="section-header">
-    <div class="step-num">6</div>
+    <div class="step-num">7</div>
     <h2>Antigravity 串接個人 GitHub</h2>
   </div>
 
@@ -969,9 +1106,9 @@ feat: add responsive navigation menu
 <!-- ════════════════════════════════════════ -->
 <!-- SECTION 7: 抓取 Repo -->
 <!-- ════════════════════════════════════════ -->
-<section class="section" id="s7">
+<section class="section" id="s8">
   <div class="section-header">
-    <div class="step-num">7</div>
+    <div class="step-num">8</div>
     <h2>把 GitHub 倉庫抓到本機</h2>
   </div>
 
@@ -1051,9 +1188,9 @@ feat: add responsive navigation menu
 <!-- ════════════════════════════════════════ -->
 <!-- SECTION 8: 進階實戰 -->
 <!-- ════════════════════════════════════════ -->
-<section class="section" id="s8">
+<section class="section" id="s9">
   <div class="section-header">
-    <div class="step-num">8</div>
+    <div class="step-num">9</div>
     <h2>進階實戰 <span class="badge badge-adv">進階</span></h2>
   </div>
 
