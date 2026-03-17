@@ -83,30 +83,91 @@
     color: var(--muted);
   }
 
-  /* Nav */
-  .toc {
-    background: var(--card);
+  /* ── 左側目錄 ── */
+  .page-layout {
+    display: flex;
+    align-items: flex-start;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .sidebar-toc {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding: 20px 0 20px 20px;
+  }
+  .sidebar-toc .toc-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 0 12px 10px;
     border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
-    position: sticky; top: 0; z-index: 100;
-    overflow-x: auto;
+    margin-bottom: 8px;
   }
-  .toc-inner {
-    display: flex; gap: 8px; align-items: center;
-    max-width: 1100px; margin: 0 auto;
-    white-space: nowrap;
-  }
-  .toc-inner span { color: var(--muted); font-size: 13px; margin-right: 4px; }
-  .toc a {
-    color: var(--muted); text-decoration: none;
-    font-size: 13px; padding: 4px 12px;
-    border-radius: 6px; border: 1px solid transparent;
+  .sidebar-toc a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
     transition: all .2s;
+    line-height: 1.4;
   }
-  .toc a:hover { color: var(--text); border-color: var(--border); }
+  .sidebar-toc a:hover {
+    color: var(--text);
+    background: rgba(99,102,241,.08);
+    border-left-color: var(--primary);
+  }
+  .sidebar-toc a.active {
+    color: #a5b4fc;
+    background: rgba(99,102,241,.12);
+    border-left-color: var(--primary);
+  }
+  .sidebar-toc .toc-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #4f46e5;
+    background: rgba(99,102,241,.15);
+    border-radius: 4px;
+    padding: 1px 5px;
+    flex-shrink: 0;
+  }
 
   /* Layout */
-  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  .container {
+    flex: 1;
+    min-width: 0;
+    max-width: 860px;
+    padding: 0 32px 0 28px;
+  }
+
+  /* 小螢幕隱藏側欄 */
+  @media (max-width: 900px) {
+    .sidebar-toc { display: none; }
+    .container { padding: 0 20px; }
+  }
+
+  /* 統一字體大小 */
+  .section p, .card p, .step-content p,
+  .callout-body p, .feature-item p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .section h2 { font-size: 26px; }
+  .card h3 { font-size: 17px; }
+  .step-content h4, .feature-item h4 { font-size: 15px; }
+  .callout-body h4 { font-size: 14px; }
+  pre, code { font-size: 13px; }
+  table td, table th { font-size: 14px; }
 
   /* Sections */
   .section {
@@ -395,22 +456,23 @@
   </div>
 </div>
 
-<!-- TOC -->
-<nav class="toc">
-  <div class="toc-inner">
-    <span>目錄：</span>
-    <a href="#s1">① 安裝 Antigravity</a>
-    <a href="#s2">② 介面介紹</a>
-    <a href="#s3">③ Vibe Coding 流程</a>
-    <a href="#s4">④ Claude Code</a>
-    <a href="#s5">⑤ 安裝 Git</a>
-    <a href="#s6">⑥ GitHub 入門</a>
-    <a href="#s7">⑦ Antigravity × GitHub</a>
-    <a href="#s8">⑧ 抓取 Repo</a>
-    <a href="#s9">⑨ Figma→PRD→開發流程</a>
-    <a href="#s10">⑩ GCP 部署上線</a>
-  </div>
-</nav>
+<!-- 頁面主體：左側目錄 + 右側內容 -->
+<div class="page-layout">
+
+  <!-- 左側固定目錄 -->
+  <nav class="sidebar-toc" id="sidebar-toc">
+    <div class="toc-title">📚 目錄</div>
+    <a href="#s1"><span class="toc-num">①</span>安裝 Antigravity</a>
+    <a href="#s2"><span class="toc-num">②</span>介面介紹</a>
+    <a href="#s3"><span class="toc-num">③</span>Vibe Coding 流程</a>
+    <a href="#s4"><span class="toc-num">④</span>Claude Code</a>
+    <a href="#s5"><span class="toc-num">⑤</span>安裝 Git</a>
+    <a href="#s6"><span class="toc-num">⑥</span>GitHub 入門</a>
+    <a href="#s7"><span class="toc-num">⑦</span>Antigravity × GitHub</a>
+    <a href="#s8"><span class="toc-num">⑧</span>抓取 Repo</a>
+    <a href="#s9"><span class="toc-num">⑨</span>Figma → PRD → 開發</a>
+    <a href="#s10"><span class="toc-num">⑩</span>GCP 部署上線</a>
+  </nav>
 
 <div class="container">
 
@@ -1831,10 +1893,30 @@ repo 網址是 https://github.com/我的帳號/我的專案
 </section>
 
 
+</div><!-- end page-layout -->
+
 <footer>
   <p>整理製作 by <a href="https://github.com/mela0976/cheng-lin-tsai" target="_blank">Cheng-Lin Tsai</a>　｜　<a href="https://www.youtube.com/watch?v=Rb0_LutRIaw" target="_blank">進階影片參考</a></p>
   <p style="margin-top:8px;font-size:12px;color:#475569;">本教學定期更新，歡迎 Star ⭐ 以收藏最新版本</p>
 </footer>
 
+<script>
+// 目錄 active 狀態跟著捲動
+const sections = document.querySelectorAll('.section[id]');
+const tocLinks = document.querySelectorAll('.sidebar-toc a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
