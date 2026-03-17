@@ -86,18 +86,22 @@
   /* ── 左側目錄 ── */
   .page-layout {
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
+    gap: 0;
   }
   .sidebar-toc {
-    width: 220px;
+    width: 200px;
+    min-width: 200px;
     flex-shrink: 0;
     position: sticky;
     top: 24px;
+    align-self: flex-start;
     max-height: calc(100vh - 48px);
     overflow-y: auto;
-    padding: 20px 0 20px 20px;
+    padding: 24px 0 24px 20px;
   }
   .sidebar-toc .toc-title {
     font-size: 11px;
@@ -146,8 +150,9 @@
   .container {
     flex: 1;
     min-width: 0;
-    max-width: 860px;
-    padding: 0 32px 0 28px;
+    max-width: 900px;
+    padding: 0 40px 0 32px;
+    overflow: hidden;
   }
 
   /* 小螢幕隱藏側欄 */
@@ -1892,7 +1897,7 @@ repo 網址是 https://github.com/我的帳號/我的專案
   </div>
 </section>
 
-
+</div><!-- end container -->
 </div><!-- end page-layout -->
 
 <footer>
