@@ -407,7 +407,8 @@
     <a href="#s6">⑥ GitHub 入門</a>
     <a href="#s7">⑦ Antigravity × GitHub</a>
     <a href="#s8">⑧ 抓取 Repo</a>
-    <a href="#s9">⑨ 進階實戰</a>
+    <a href="#s9">⑨ Figma→PRD→開發流程</a>
+    <a href="#s10">⑩ GCP 部署上線</a>
   </div>
 </nav>
 
@@ -1249,14 +1250,213 @@ feat: add responsive navigation menu
 <section class="section" id="s9">
   <div class="section-header">
     <div class="step-num">9</div>
-    <h2>進階實戰 <span class="badge badge-adv">進階</span></h2>
+    <h2>Figma 匯入 → PRD → 功能開發完整流程 <span class="badge badge-adv">進階</span></h2>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 完整產品開發流程</h3>
+    <p>這是最接近真實工作場景的開發流程：從設計稿出發，讓 AI 幫你理解設計意圖、寫出規格書（PRD），再逐步把功能做出來。<strong style="color:#6ee7b7;">全程用自然語言跟 AI 對話，不需要自己寫任何指令。</strong></p>
+  </div>
+
+  <div class="flow" style="margin-bottom:32px;">
+    <div class="flow-item">
+      <span class="flow-icon">🎨</span>
+      <strong>Figma 設計稿</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">視覺稿/截圖</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">📋</span>
+      <strong>AI 產生 PRD</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">功能規格書</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🧱</span>
+      <strong>切版/架構</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">HTML+CSS</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">⚙️</span>
+      <strong>功能開發</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">JS 邏輯</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🧪</span>
+      <strong>測試驗收</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">確認完成</div>
+    </div>
+  </div>
+
+  <h3 style="margin:0 0 20px;font-size:20px;">階段一：Figma 設計稿 → AI 理解設計</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>匯出 Figma 截圖</h4>
+        <p>在 Figma 選取你要實作的頁面或元件，按 <span class="ic">Ctrl+Shift+E</span> 匯出成 PNG 圖片。或直接截圖也可以。</p>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>手上有一張清楚的設計稿截圖，可以看到頁面佈局、文字、顏色和元件。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>把圖片拖進 Antigravity Chat</h4>
+        <p>打開 Gemini Chat 視窗（左側 ✦ 圖示），直接把設計稿截圖<strong>拖放進對話框</strong>，然後用自然語言說：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>這是我的設計稿截圖。
+請幫我分析這個頁面的：
+1. 整體佈局結構
+2. 有哪些主要元件（按鈕、卡片、導覽列等）
+3. 顏色主題和字型風格
+4. 互動功能（點擊、hover 效果等）</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>AI 能說出頁面有哪些元件、什麼顏色、什麼佈局，而且描述跟你的設計稿吻合。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 20px;font-size:20px;">階段二：AI 產生 PRD（功能規格書）</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>請 AI 寫 PRD</h4>
+        <p>基於剛才的設計分析，請 AI 產生一份完整的功能規格書：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>根據剛才的設計稿分析，
+幫我寫一份 PRD.md 功能規格書，包含：
+- 頁面目的和使用者目標
+- 所有功能點的詳細說明
+- 每個元件的行為規則（例如：按鈕點擊後做什麼）
+- 邊界情況處理（例如：空白狀態、載入中、錯誤）
+- 預期的驗收標準</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>專案根目錄出現 <span class="ic">PRD.md</span>，裡面有清楚的功能列表和驗收標準，讀完後你知道每個功能應該怎麼運作。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>審查並調整 PRD</h4>
+        <p>仔細讀 AI 產生的 PRD，如果有不符合你預期的地方，直接告訴 AI 修改：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話（舉例）</span></div>
+          <pre><code>PRD 的第三點不對，按鈕點擊後不是跳新頁面，
+是在同一頁面展開一個下拉選單。請修正。
+
+另外請加上：用戶未登入時，
+點擊任何功能都要先導向登入頁面。</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>你對 PRD.md 的每一行都滿意，這份文件代表你對這個功能的完整期待。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 20px;font-size:20px;">階段三：逐步開發功能</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">5</div>
+      <div class="step-content">
+        <h4>先做 HTML 結構和 CSS 樣式</h4>
+        <p>告訴 AI 先做靜態畫面，不要急著加 JavaScript 邏輯：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>根據 @PRD.md 的規格，
+先幫我把 HTML 結構和 CSS 樣式做出來，
+要跟設計稿一樣的顏色、字型和間距。
+暫時不用加任何 JavaScript 互動功能。
+完成後告訴我預覽畫面對不對。</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>在瀏覽器打開 index.html，畫面佈局和設計稿至少 80% 相符。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">6</div>
+      <div class="step-content">
+        <h4>一次只做一個功能</h4>
+        <p>從 PRD 選第一個功能，單獨請 AI 實作：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code">根據 @PRD.md 的「功能三：下拉選單」，
+幫我實作這個功能。
+要求：
+- 點擊按鈕展開選單
+- 點選任一項目後選單收起
+- 選中的項目顯示 checkmark
+實作完後提醒我測試哪些情況。</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>按照 AI 的測試清單一一確認，全部通過才算這個功能完成，再進行下一個。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">7</div>
+      <div class="step-content">
+        <h4>遇到問題直接說給 AI 聽</h4>
+        <p>不用懂任何程式語法，直接描述你看到的問題：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我點下拉選單的第二個選項後，
+選單沒有收起來，還是展開的狀態。
+而且選中的 checkmark 出現在第一項不是第二項。
+請幫我找出原因並修正。</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>你描述的問題 AI 都能修好，不需要自己看程式碼。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">8</div>
+      <div class="step-content">
+        <h4>全部功能完成後做最終驗收</h4>
+        <p>所有功能做完後，請 AI 幫你對照 PRD 做驗收：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code">請根據 @PRD.md 的「預期驗收標準」，
+列出所有我應該測試的情境清單，
+包含正常情況和邊界情況，
+我會逐一手動測試確認。</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>跑完 AI 給的所有測試情境，全部通過 ✓。功能開發完成，可以進入部署階段。</p></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="callout callout-info">
     <div class="callout-icon">🎬</div>
     <div class="callout-body">
-      <h4>推薦影片：Antigravity Workflow 實戰</h4>
-      <p>以下內容參考：【Antigravity Workflow 實戰】市場不會為爛產品買單！建立自動化測試，解決 Vibe Coding 痛點</p>
+      <h4>參考影片：Antigravity Workflow 實戰</h4>
+      <p>【Antigravity Workflow 實戰】市場不會為爛產品買單！建立自動化測試，解決 Vibe Coding 痛點</p>
     </div>
   </div>
 
@@ -1370,6 +1570,267 @@ CI 工作流程，每次 push 時自動：
 </div><!-- end container -->
 
 <!-- Footer -->
+
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 10: GCP 部署 -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="s10">
+  <div class="section-header">
+    <div class="step-num">10</div>
+    <h2>GCP 開 VM，把服務部署上線 <span class="badge badge-adv">進階</span></h2>
+  </div>
+
+  <div class="card">
+    <h3>☁️ 為什麼要部署到 GCP？</h3>
+    <p>在自己電腦上跑的網站，只有你自己看得到。部署到 Google Cloud Platform（GCP）的虛擬機器（VM）後，<strong style="color:#6ee7b7;">任何人在世界上任何地方</strong>，用瀏覽器就能打開你的網站。全程告訴 AI 你要做什麼，AI 幫你生成所有指令，你只需要複製貼上確認。</p>
+  </div>
+
+  <div class="flow" style="margin-bottom:32px;">
+    <div class="flow-item">
+      <span class="flow-icon">☁️</span>
+      <strong>建立 GCP 帳號</strong>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🖥️</span>
+      <strong>開一台 VM</strong>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🔗</span>
+      <strong>SSH 連進去</strong>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">📦</span>
+      <strong>部署程式碼</strong>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🌐</span>
+      <strong>對外公開</strong>
+    </div>
+  </div>
+
+  <h3 style="margin:0 0 20px;font-size:20px;">階段一：建立 GCP 帳號與專案</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>建立 GCP 帳號</h4>
+        <p>前往 <a href="https://cloud.google.com" target="_blank">cloud.google.com</a>，用 Google 帳號登入。新帳號有 <strong style="color:#fcd34d;">$300 美元免費額度（90天）</strong>，開 VM 測試完全夠用。需要輸入信用卡，但不會自動扣款，額度用完才會詢問你是否升級。</p>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>成功登入 GCP Console，右上角看到你的 Google 帳號，首頁顯示「剩餘試用額度 $300」。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>請 AI 幫你建立 GCP 專案</h4>
+        <p>回到 Antigravity，告訴 AI 你要做什麼：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我要在 GCP 建立一個新專案來部署我的網站。
+請告訴我：
+1. 在 GCP Console 哪裡建立新專案
+2. 專案名稱要怎麼取（有什麼限制）
+3. 建立後我應該看到什麼畫面確認成功</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>GCP Console 左上角的專案選單裡看到你剛建立的專案名稱，且已被選取。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 20px;font-size:20px;">階段二：開一台虛擬機器（VM）</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>請 AI 推薦 VM 規格</h4>
+        <p>告訴 AI 你的網站用途，讓他推薦最省錢的配置：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我要在 GCP 開一台 VM 來跑一個 Node.js 網頁應用，
+預計同時使用人數不超過 10 人，這是練習用的。
+請推薦最省錢的 VM 規格（機器類型、磁碟大小、作業系統），
+並告訴我在 GCP Console 哪裡設定，
+每個欄位填什麼值。</code></pre>
+        </div>
+        <div class="callout callout-info" style="margin-top:12px;">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body"><h4>AI 通常會推薦</h4><p>e2-micro 或 e2-small、Ubuntu 22.04 LTS、10GB SSD。每月費用約 $5~10 美元，免費額度夠用幾個月。</p></div>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>VM 建立成功，在「Compute Engine → VM 執行個體」頁面看到你的 VM 狀態是綠色的「執行中」。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>設定防火牆規則開放 HTTP/HTTPS</h4>
+        <p>VM 預設不對外開放，需要告訴 GCP 允許網頁流量進來：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我的 GCP VM 建好了，但現在外部無法用瀏覽器連進來。
+請告訴我怎麼在 GCP Console 設定防火牆規則，
+允許 HTTP（port 80）和 HTTPS（port 443）的流量進來。
+請說明每個設定欄位要填什麼。</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>「VPC 網路 → 防火牆規則」看到允許 port 80 和 443 的規則，且已套用到你的 VM。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 20px;font-size:20px;">階段三：連進 VM 並部署程式碼</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">5</div>
+      <div class="step-content">
+        <h4>用 SSH 連進 VM</h4>
+        <p>在 GCP Console 的 VM 列表，點擊「SSH」按鈕，瀏覽器會彈出一個黑色視窗（就是 Terminal），這就表示你已經連進 VM 了。</p>
+        <div class="vscode" style="margin-top:12px;">
+          <div class="vscode-titlebar">🖥️ GCP SSH Terminal — VM 內部</div>
+          <div style="background:#0d1117;padding:16px;font-family:monospace;font-size:13px;color:#e6edf3;border-radius:0 0 8px 8px;">
+            <div style="color:#3fb950;">你@你的VM名稱:~$</div>
+            <div style="color:#a5b4fc;margin-top:4px;">// 你已經在 VM 裡面了，可以開始操作</div>
+          </div>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>瀏覽器出現黑色 SSH 視窗，命令提示符顯示你的 VM 名稱，例如：<span class="ic">你的名稱@my-vm:~$</span></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">6</div>
+      <div class="step-content">
+        <h4>請 AI 生成環境安裝指令</h4>
+        <p>你不需要記任何指令，全部讓 AI 生成，你複製貼上就好：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我已經用 SSH 連進 GCP 的 Ubuntu 22.04 VM 了。
+我的網站是用 Node.js + Express 寫的。
+請幫我生成：
+1. 更新系統套件的指令
+2. 安裝 Node.js 和 npm 的指令
+3. 安裝 Git 的指令
+4. 安裝 PM2（讓服務在背景跑）的指令
+每個指令執行後我應該看到什麼訊息確認成功？</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>在 VM 裡執行 <span class="ic">node --version</span> 和 <span class="ic">npm --version</span> 都能看到版本號碼。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">7</div>
+      <div class="step-content">
+        <h4>從 GitHub 把程式碼拉到 VM</h4>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我的程式碼在 GitHub 上，
+repo 網址是 https://github.com/我的帳號/我的專案
+請幫我生成：
+1. 把程式碼 clone 到 VM 的指令
+2. 安裝 npm 依賴的指令
+3. 確認能正常啟動的指令</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>執行啟動指令後，Terminal 顯示「Server running on port 3000」或類似成功訊息。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">8</div>
+      <div class="step-content">
+        <h4>設定 PM2 讓服務永遠在線</h4>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code">我的 Node.js 服務可以跑了，
+但關掉 SSH 視窗後服務就停了。
+請幫我用 PM2 把服務設定成：
+1. 在背景持續執行
+2. VM 重啟後自動啟動
+3. 怎麼查看服務狀態是否正常</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>執行 <span class="ic">pm2 list</span> 看到服務狀態是 <span style="color:#6ee7b7;">online</span>，關閉 SSH 視窗後過 1 分鐘再打開，服務依然在線。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 20px;font-size:20px;">階段四：對外公開，取得網址</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">9</div>
+      <div class="step-content">
+        <h4>用 VM 的外部 IP 直接訪問</h4>
+        <p>GCP VM 建立後會有一個「外部 IP」，在 VM 列表可以看到。在瀏覽器輸入 <span class="ic">http://你的外部IP:3000</span> 就能看到你的網站。</p>
+        <div class="callout callout-warn" style="margin-top:12px;">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body"><h4>注意：IP 是暫時的</h4><p>每次重啟 VM，外部 IP 可能會變動。要請 AI 教你設定「靜態外部 IP」讓網址固定。</p></div>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>在任何一台電腦或手機的瀏覽器輸入 IP，都能看到你的網站正常運作。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">10</div>
+      <div class="step-content">
+        <h4>（選）設定自己的網域名稱</h4>
+        <p>如果你有自己的網域（如 mysite.com），請 AI 指引你完成最後一步：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>我的 GCP VM 外部 IP 是 34.xx.xx.xx
+我在 GoDaddy 買了一個網域叫 mysite.com
+請告訴我：
+1. 怎麼在 GoDaddy 設定 DNS 指向這個 IP
+2. 怎麼在 VM 設定 Nginx 讓 port 80 轉到我的服務
+3. 怎麼申請免費的 HTTPS 憑證（Let's Encrypt）</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>最終完成指標</h4><p>在瀏覽器輸入 <span class="ic">https://mysite.com</span>，看到你的網站，網址列顯示 🔒 鎖頭（HTTPS），代表整個部署流程完成！</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <h3>📋 部署完成清單</h3>
+    <table>
+      <tr><th>項目</th><th>確認方式</th><th>狀態</th></tr>
+      <tr><td>GCP VM 在執行中</td><td>GCP Console VM 列表顯示綠色</td><td>☐</td></tr>
+      <tr><td>防火牆開放 80/443</td><td>VPC 防火牆規則可見</td><td>☐</td></tr>
+      <tr><td>程式碼已部署</td><td>PM2 list 顯示 online</td><td>☐</td></tr>
+      <tr><td>外部可訪問</td><td>手機瀏覽器能打開網站</td><td>☐</td></tr>
+      <tr><td>VM 重啟後服務自啟</td><td>PM2 startup 設定完成</td><td>☐</td></tr>
+      <tr><td>（選）HTTPS 憑證</td><td>網址顯示 🔒</td><td>☐</td></tr>
+    </table>
+  </div>
+</section>
+
+
 <footer>
   <p>整理製作 by <a href="https://github.com/mela0976/cheng-lin-tsai" target="_blank">Cheng-Lin Tsai</a>　｜　<a href="https://www.youtube.com/watch?v=Rb0_LutRIaw" target="_blank">進階影片參考</a></p>
   <p style="margin-top:8px;font-size:12px;color:#475569;">本教學定期更新，歡迎 Star ⭐ 以收藏最新版本</p>
