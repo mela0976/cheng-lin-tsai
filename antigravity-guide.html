@@ -475,8 +475,8 @@
     <a href="#s6"><span class="toc-num">⑥</span>GitHub 入門</a>
     <a href="#s7"><span class="toc-num">⑦</span>Antigravity × GitHub</a>
     <a href="#s8"><span class="toc-num">⑧</span>抓取 Repo</a>
-    <a href="#s9"><span class="toc-num">⑨</span>Figma → PRD → 開發</a>
-    <a href="#s10"><span class="toc-num">⑩</span>GCP 部署上線</a>
+    <a href="#s10"><span class="toc-num">⑨</span>Figma → PRD → 開發</a>
+    <a href="#s11"><span class="toc-num">⑩</span>GCP 部署上線</a>
   </nav>
 
 <div class="container">
@@ -1314,9 +1314,190 @@ feat: add responsive navigation menu
 <!-- ════════════════════════════════════════ -->
 <!-- SECTION 8: 進階實戰 -->
 <!-- ════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- SECTION 9: Claude Code to Figma -->
+<!-- ════════════════════════════════════════ -->
 <section class="section" id="s9">
   <div class="section-header">
     <div class="step-num">9</div>
+    <h2>Claude Code to Figma<br><span style="font-size:18px;font-weight:500;color:var(--muted);">把 AI 生成的介面直接變成可編輯設計稿</span></h2>
+  </div>
+
+  <div class="card">
+    <h3>🔗 這是什麼？</h3>
+    <p>2026 年 2 月 17 日，Figma 和 Anthropic 正式推出 <strong>Claude Code to Figma</strong>（又稱「Code to Canvas」）整合功能。它讓你把用 Claude Code 建立的網頁介面，<strong style="color:#6ee7b7;">直接擷取到 Figma 畫布上，變成完全可編輯的設計檔</strong>——不是截圖，而是有圖層、可以拆解的真實 Figma Frame。</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="padding:20px;">
+      <h3>❌ 以前的痛點</h3>
+      <ul>
+        <li>AI 產出的介面只能截圖分享</li>
+        <li>要請同事 clone 專案跑 dev server</li>
+        <li>來回切換分支才能比較方案</li>
+        <li>設計師無法直接標註 AI 產出的稿</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:20px;">
+      <h3>✅ 現在可以做到</h3>
+      <ul>
+        <li>直接在 Figma 看到可編輯的 Frame</li>
+        <li>團隊一起在畫布標註討論</li>
+        <li>並排比較多個版本</li>
+        <li>設計師不用懂 code 也能參與</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:28px 0 16px;font-size:18px;">雙向工作流</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <span class="flow-icon">🎨</span>
+      <strong>Figma 設計稿</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">Claude 讀取設計</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🤖</span>
+      <strong>Claude Code</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">生成程式碼</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🌐</span>
+      <strong>瀏覽器介面</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">跑起來的成品</div>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-item">
+      <span class="flow-icon">🎨</span>
+      <strong>回到 Figma</strong>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">可編輯 Frame</div>
+    </div>
+  </div>
+
+  <div class="callout callout-info" style="margin-top:8px;">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <h4>為什麼是「雙向」？</h4>
+      <p>Figma MCP Server 之前已支援 Claude Code 讀取 Figma 設計來生成程式碼。現在加上 Code to Figma，整個流程變成：設計 → 程式碼 → 再回設計，形成<strong>持續迭代的循環</strong>，而不是過去的單向交接。</p>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 16px;font-size:18px;">安裝與設定步驟</h3>
+
+  <div class="callout callout-warn" style="margin-bottom:20px;">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <h4>前置需求</h4>
+      <p>• <strong>Figma 桌面版 App</strong>（網頁版不支援）<br>
+         • <strong>Figma Dev 或 Full 授權</strong><br>
+         • <strong>Claude Code</strong>（已安裝，見第四章）</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-content">
+        <h4>開啟 Figma 桌面版的 MCP Server</h4>
+        <p>打開 Figma 桌面 App → 左上角選單 → <span class="ic">Preferences</span>（偏好設定）→ 找到「<strong>Dev Mode MCP Server</strong>」並開啟。</p>
+        <p style="margin-top:8px;">開啟後它會在本機 <span class="ic">http://127.0.0.1:3845/sse</span> 執行。</p>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>Preferences 裡的「Dev Mode MCP Server」開關是藍色（開啟）狀態。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-content">
+        <h4>在 Claude Code 連接 MCP Server</h4>
+        <p>打開 Antigravity 的 Terminal，告訴 Claude 你要連接 Figma：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">terminal（直接複製這行執行）</span></div>
+          <pre><code><span class="cmd">claude</span> mcp add --transport sse figma-dev-mode-mcp-server http://127.0.0.1:3845/sse</code></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>Terminal 顯示成功新增 MCP server 的訊息，之後在 Claude Code 裡就可以使用 Figma 相關指令。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-content">
+        <h4>把介面擷取到 Figma</h4>
+        <p>用 Claude Code 把你的網站跑起來後，在 Gemini Chat 或 Claude 對話裡說：</p>
+        <div class="code-block" style="margin-top:12px;">
+          <div class="code-header"><span class="lang">你對 AI 說的話</span></div>
+          <pre><code>把目前瀏覽器顯示的介面傳送到 Figma
+（Send this to Figma）</code></pre>
+        </div>
+        <p style="margin-top:10px;">AI 會透過 MCP Server 擷取瀏覽器的當前畫面，解析成圖層結構並複製到剪貼簿。</p>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>AI 說「已擷取完成，請貼到 Figma」，打開 Figma 按 Ctrl+V，出現可編輯的 Frame（不是扁平圖片）。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-content">
+        <h4>在 Figma 貼上並開始協作</h4>
+        <p>把 Frame 貼進 Figma 後，可以：</p>
+        <ul style="color:var(--muted);font-size:15px;padding-left:20px;margin-top:8px;line-height:2;">
+          <li>展開圖層、修改文字顏色和間距</li>
+          <li>加上 Comment 標記需要修改的地方</li>
+          <li>複製 Frame 做不同版本的比較</li>
+          <li>分享 Figma 連結給團隊，不用跑 dev server</li>
+        </ul>
+        <div class="callout callout-tip" style="margin-top:12px;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><h4>完成指標</h4><p>Figma 裡的 Frame 可以點擊單一元件（如按鈕、文字），左側圖層面板顯示完整的圖層結構，而不是一張扁平圖片。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 16px;font-size:18px;">四大應用場景</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="icon">👁️</div>
+      <h4>看到整個系統全貌</h4>
+      <p>把多個頁面一次擷取到 Figma，並排比較整個 flow，發現不一致的地方。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">🔀</div>
+      <h4>探索設計變體</h4>
+      <p>複製 Frame、調整排版、測試不同結構，不用改一行程式碼就能試想法。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">⚡</div>
+      <h4>更早做出決定</h4>
+      <p>設計師、工程師、PM 對著同一個 Figma 檔案討論，問題浮現得更早。</p>
+    </div>
+    <div class="feature-item">
+      <div class="icon">💬</div>
+      <h4>讓 UI 變成共識</h4>
+      <p>在 Figma 標註、加 Comment、概念化選項，設計成為「一起思考」的過程。</p>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">🔗</div>
+    <div class="callout-body">
+      <h4>延伸資源</h4>
+      <p>• <a href="https://rar.design/posts/claude-code-to-figma-guide" target="_blank">完整教學文章（設計師 Riven）</a><br>
+         • <a href="https://www.figma.com/blog/from-claude-code-to-figma/" target="_blank">Figma 官方發布文章</a><br>
+         • Figma MCP Server 使用指南（Figma 官方文件）</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header">
+    <div class="step-num">10</div>
     <h2>Figma 匯入 → PRD → 功能開發完整流程 <span class="badge badge-adv">進階</span></h2>
   </div>
 
@@ -1637,9 +1818,9 @@ CI 工作流程，每次 push 時自動：
 <!-- ════════════════════════════════════════ -->
 <!-- SECTION 10: GCP 部署 -->
 <!-- ════════════════════════════════════════ -->
-<section class="section" id="s10">
+<section class="section" id="s11">
   <div class="section-header">
-    <div class="step-num">10</div>
+    <div class="step-num">11</div>
     <h2>GCP 開 VM，把服務部署上線 <span class="badge badge-adv">進階</span></h2>
   </div>
 
