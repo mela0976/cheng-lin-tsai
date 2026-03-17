@@ -152,7 +152,7 @@
     min-width: 0;
     max-width: 900px;
     padding: 0 40px 0 32px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   /* 小螢幕隱藏側欄 */
@@ -1905,21 +1905,40 @@ repo 網址是 https://github.com/我的帳號/我的專案
 
 <script>
 // 目錄 active 狀態跟著捲動
-const sections = document.querySelectorAll('.section[id]');
-const tocLinks = document.querySelectorAll('.sidebar-toc a');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      tocLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + entry.target.id) {
-          link.classList.add('active');
+(function() {
+  const sections = document.querySelectorAll('.section[id]');
+  const tocLinks = document.querySelectorAll('.sidebar-toc a');
+  const sidebar = document.getElementById('sidebar-toc');
+
+  function updateActiveLink() {
+    const scrollY = window.scrollY + 120;
+    let currentId = '';
+
+    sections.forEach(section => {
+      if (section.offsetTop <= scrollY) {
+        currentId = section.id;
+      }
+    });
+
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentId) {
+        link.classList.add('active');
+        // 讓 sidebar 自動捲動到 active 的項目
+        if (sidebar) {
+          const linkTop = link.offsetTop - sidebar.offsetTop;
+          const sidebarHeight = sidebar.clientHeight;
+          if (linkTop < sidebar.scrollTop || linkTop > sidebar.scrollTop + sidebarHeight - 40) {
+            sidebar.scrollTo({ top: linkTop - sidebarHeight / 2, behavior: 'smooth' });
+          }
         }
-      });
-    }
-  });
-}, { threshold: 0.15, rootMargin: '-80px 0px -60% 0px' });
-sections.forEach(s => observer.observe(s));
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
+})();
 </script>
 </body>
 </html>
